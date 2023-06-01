@@ -354,6 +354,7 @@ class Cursor:
 class DictCursor(Cursor):
     async def fetchone(self):
         row = await super(DictCursor, self).fetchone()
+        print(self._columns)
         if self._columns:
             return dict(zip(self._columns, row)) if row else {}
         else:
@@ -361,6 +362,7 @@ class DictCursor(Cursor):
 
     async def fetchmany(self, size: int):
         rows = await super(DictCursor, self).fetchmany(size)
+        print(self._columns)
         if self._columns:
             return [dict(zip(self._columns, item)) for item in rows] if rows else []
         else:
@@ -368,6 +370,7 @@ class DictCursor(Cursor):
 
     async def fetchall(self):
         rows = await super(DictCursor, self).fetchall()
+        print(self._columns)
         if self._columns:
             return [dict(zip(self._columns, item)) for item in rows] if rows else []
         else:
